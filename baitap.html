@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quản lý điểm sinh viên</title>
+<style>
+  body{font-family:Arial, sans-serif; margin:30px;}
+  h1{color:red;}
+  h2{color:orangered;}
+  input{padding:5px; margin-right:5px;}
+  button{padding:6px 10px;}
+  ul{list-style-type:disc; padding-left:20px;}
+  .dat{color:green;}
+  .truot{color:red;}
+</style>
+</head>
+<body>
+
+<h1>Xin chao!!!</h1>
+
+<h2>Quản lý điểm sinh viên</h2>
+
+<input type="text" id="ten" placeholder="Tên sinh viên">
+<input type="number" id="diem" placeholder="Điểm số">
+<button onclick="themSinhVien()">Thêm sinh viên</button>
+
+<ul id="danhSach"></ul>
+
+<script>
+  let sinhViens = [
+    {ten: "Nguyễn Văn A", diem: 8.5},
+    {ten: "Trần Thị B", diem: 4}
+  ];
+
+  function hienThi(){
+    const ul = document.getElementById('danhSach');
+    ul.innerHTML = "";
+    for(let sv of sinhViens){
+      const dat = sv.diem >= 5;
+      const li = document.createElement('li');
+      li.className = dat ? 'dat' : 'truot';
+      li.textContent = "Họ tên: " + sv.ten + " - Điểm: " + sv.diem + " (" + (dat ? "Đạt" : "Trượt") + ")";
+      ul.appendChild(li);
+    }
+  }
+
+  function themSinhVien(){
+    const ten = document.getElementById('ten').value;
+    const diem = parseFloat(document.getElementById('diem').value);
+    if(!ten || isNaN(diem)) return;
+    sinhViens.push({ten, diem});
+    document.getElementById('ten').value = "";
+    document.getElementById('diem').value = "";
+    hienThi();
+  }
+
+  hienThi();
+</script>
+
+</body>
+</html>
